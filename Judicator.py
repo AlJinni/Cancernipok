@@ -39,7 +39,7 @@ for filename in filelist:
             continue
         continue
     testcode = subprocess.Popen(["python",filepath])
-    testcode.terminate
+    testcode.terminate()
     if testcode.poll() and testcode.returncode != 0:
         os.remove(filepath)
 
@@ -48,7 +48,10 @@ for filename in filelist:
     process = subprocess.Popen(bashSort.split(), stdout=subprocess.PIPE)
     output = process.communicate()[0]
     time.sleep(.05)
-    process.terminate()
+    try:
+        process.terminate()
+    except OSError:
+        pass
     print output
 
     filediff = tempfile.NamedTemporaryFile("w", dir="/Users/jadtayl/Desktop/Advanced-Programming/TechnoCoreExperiment/Differences", delete=False)
